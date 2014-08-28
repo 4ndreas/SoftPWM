@@ -170,7 +170,7 @@ ISR(SOFTPWM_TIMER_INTERRUPT)
 
 
 
-void SoftPWMBegin(uint8_t defaultPolarity)
+void SoftPWMBegin(uint8_t period_us, uint8_t defaultPolarity)
 {
   // We can tweak the number of PWM period by changing the prescalar
   // and the OCR - we'll default to ck/8 (CS21 set) and OCR=128.
@@ -182,7 +182,7 @@ void SoftPWMBegin(uint8_t defaultPolarity)
   uint8_t i;
 
 #if defined(SPARK)
-  refreshTimer.begin(SoftPWM_Timer_Interrupt, 66, uSec);	//Set for 60Hz
+  refreshTimer.begin(SoftPWM_Timer_Interrupt, period_us, uSec);	//Set for 60Hz
 #else
 #ifdef WIRING
   Timer2.setMode(0b010);  // CTC
